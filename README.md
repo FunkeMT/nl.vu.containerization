@@ -55,6 +55,34 @@
 `microk8s kubectl port-forward -n simpleapp-reactapp service/flask-api-cluster  --address 10.0.2.15 5055:5000`  
 `curl -k http://10.0.2.15:5055`
 
-### Backend - API - nginx
+### Frontend - react - nginx
+The react app will be build automatically while the docker image is created.
 
-### Frontend - React
+1. Create Docker image  
+
+    * build image  
+    `docker build simple-app/frontend/Dockerfile`
+    * list images to get image-ID  
+    `docker images`
+    * tag image  
+    `docker tag 1a0297baaf3c simple-app-frontend:v1`
+
+1. Tag and push image to local registry
+
+    * create image for local-registry  
+    `docker tag simple-app-frontend:v1 localhost:32000/simple-app-frontend:v1`
+    * push to local registry  
+    `docker push localhost:32000/simple-app-frontend`
+
+1. Apply nginx deployment  
+`kubectl apply -f simple-app/frontend/nginx-deployment.yml`
+
+1. Inspect NodePort of `react-client`  
+`kubectl -n simpleapp-reactapp get services`
+
+1. Inspect node IP from the host system  
+`kubectl get nodes -o wide`
+
+1. The app is now from outside accesible via  
+`http://hostIP:nodePort`  
+`http://10.0.2.15:32741`
