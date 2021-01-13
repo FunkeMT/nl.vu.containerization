@@ -7,7 +7,7 @@ function App() {
   const [contctRw,setContacts]=useState([])
   
   useEffect(() => {
-    const apiurl='http://localhost:5055/allcontacts'
+    const apiurl='/allcontacts'
     fetch(apiurl).then((out)=>{
       return out.json()
     }).then((datajsonout)=>{

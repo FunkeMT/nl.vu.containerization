@@ -1,0 +1,42 @@
+# NodePort service for react
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-client
+  namespace: simpleapp-reactapp
+  labels:
+    web: reactclient
+spec:
+  type: NodePort
+  selector:
+    web: reactclient
+  ports:
+    - port: 80
+      targetPort: 80
+
+---
+# Deployment for react client
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app
+  namespace: simpleapp-reactapp
+  labels:
+    web: reactclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      web: reactclient
+  template:
+    metadata:
+      name: client-pods
+      namespace: simpleapp-reactapp
+      labels:
+        web: reactclient
+    spec:
+      containers:
+      - name: client-containers
+        image: localhost:32000/simple-app-frontend:v1
+        ports:
+        - containerPort: 80
