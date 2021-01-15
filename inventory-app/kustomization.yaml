@@ -5,3 +5,5 @@ resources:
   - inventory-app-namespace.yaml
   - inventory-api/inventory-api-deployment.yaml
   - inventory-api/inventory-api-service.yaml
+  - inventory-ui/inventory-ui-deployment.yaml
+  - inventory-ui/inventory-ui-service.yaml
