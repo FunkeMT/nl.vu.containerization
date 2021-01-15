@@ -18,8 +18,11 @@ books = [
     }
 ]
 
-@app.route('/inventory/api/v1.0/books', methods=['GET'])
+@app.route('/')
+def index():
+    return "My Inventory App", 200
 
+@app.route('/inventory/books', methods=['GET'])
 def get_books():
     return jsonify({'books': books})
 
