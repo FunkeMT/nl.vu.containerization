@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - inventory-app-namespace.yaml
   - inventory-api/inventory-api-deployment.yaml
+  - inventory-api/inventory-api-service.yaml
