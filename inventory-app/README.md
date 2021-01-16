@@ -11,6 +11,11 @@ Then apply the comiled configuration to kubernetes:
 
 `kubectl apply -f compiled.yaml`
 
+### Volumes
+Create storage on hard disk before creating the volume and claim:
+
+`sudo mkdir -p /opt/postgre/data`
+
 ### DNS
 To access the UI add the domain to `etc/hosts`:
 

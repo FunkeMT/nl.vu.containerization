@@ -9,3 +9,8 @@ resources:
   - inventory-ui/inventory-ui-deployment.yaml
   - inventory-ui/inventory-ui-service.yaml
   - inventory-ui/inventory-ui-ingress.yaml
+  - inventory-db/postgres-config.yaml
+  - inventory-db/postgres-secret.yaml
+  - inventory-db/inventory-db-storage.yaml
+  - inventory-db/inventory-db-deployment.yaml
+  - inventory-db/inventory-db-service.yaml
