@@ -11,8 +11,29 @@ Then apply the comiled configuration to kubernetes:
 
 `kubectl apply -f compiled.yaml`
 
+### DNS
+To access the UI add the domain to `etc/hosts`:
+
+```
+127.0.0.1 inventory-app.com
+```
+
 ### TLS / HTTPS
 If you want a self signed certificate with an own created certificate authority, follow these steps: https://stackoverflow.com/a/60516812 .
+
+Example `$NAME.ext` contents:
+
+```
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+extendedKeyUsage=serverAuth,clientAuth
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = inventory-app.com
+DNS.2 = *.inventory-app.com
+```
+
 
 After you have created either a single self signed certificate or also the certificate authority, you have to create the Kubernetes secret out of the generated certifacte:
 
