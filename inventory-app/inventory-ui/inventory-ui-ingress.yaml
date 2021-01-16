@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inventory-ui-ingress
+  namespace: inventory-app
+spec:
+  rules:
+    - host: inventory-app.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: inventory-ui-lb
+                port:
+                  number: 8091
