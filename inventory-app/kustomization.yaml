@@ -7,3 +7,4 @@ resources:
   - inventory-api/inventory-api-service.yaml
   - inventory-ui/inventory-ui-deployment.yaml
   - inventory-ui/inventory-ui-service.yaml
+  - inventory-ui/inventory-ui-ingress.yaml
