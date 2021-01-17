@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export POSTGRES_DB=
+export POSTGRES_HOST=
+export POSTGRES_PORT=
+export POSTGRES_USER=
+export POSTGRES_PASSWORD=

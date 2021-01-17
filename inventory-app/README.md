@@ -54,3 +54,13 @@ Then start the Kubernetes ingress controller with the certificate:
 
 1. Restart with certificate
 `microk8s enable ingress:default-ssl-certificate=default/mtfunke-ca-tls-secret`
+
+
+## Development Environment
+
+### Inventory API `flask`
+#### Create ENV variables for DB access
+1. Set configuration in `inventory-api/env.sh`
+1. Export ENV with  
+`. inventory-api/env.sh`
+1. Do NOT check-in the file!
