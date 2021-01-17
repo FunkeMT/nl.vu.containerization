@@ -18,6 +18,15 @@ spec:
     spec:
       containers:
       - name: inventory-api-container
-        image: localhost:32000/inventory-api:v2
+        image: localhost:32000/inventory-api:v4
         ports:
-        - containerPort: 5000
+          - containerPort: 5000
+        envFrom:
+          - configMapRef:
+              name: postgres-config
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_PASSWORD

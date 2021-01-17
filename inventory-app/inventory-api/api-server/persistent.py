@@ -15,7 +15,7 @@ DB_PASS = os.environ.get('POSTGRES_PASSWORD')
 ###
 URI = 'postgresql+psycopg2://{}:{}@{}:{}/{}'.format(
     DB_USER,
-    DB_PASS,
+    DB_PASS.strip(),
     DB_HOST,
     DB_PORT,
     DB_DB
