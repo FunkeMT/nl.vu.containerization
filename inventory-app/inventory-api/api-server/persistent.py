@@ -84,8 +84,13 @@ def get_books():
         result = db_connection.execute(GET_BOOKS_QUERY)
 
         books = {}
-        for row in result:
-            books[row['id']] = (row['title'], row['author'], row['quantity'])
+        for index, row in enumerate(result):
+            books[index] = {
+                "id": row['id'],
+                "title": row['title'],
+                "author": row['author'],
+                "quantitiy": row['quantity']
+            }
     
     except exc.SQLAlchemyError as error:
         return 'Error while executing DB query: {}'.format(error)
