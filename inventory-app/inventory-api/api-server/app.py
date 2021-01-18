@@ -4,6 +4,8 @@ from persistent import get_books, add_book, edit_book, remove_book
 
 app = Flask(__name__)
 
+
+
 @app.route('/')
 def index():
     return "My Inventory App v2", 200
@@ -39,7 +41,8 @@ def create_book():
 
     try:
         add_book(title, author, quantity)
-        return jsonify({'Response': 'Successfully inserted into DB'}), 200
+        books = get_books()
+        return jsonify({'books': books}), 200
     except:
         return jsonify({'Response': 'Unable to insert into DB'}), 500
 
@@ -57,7 +60,8 @@ def update_book():
 
     try:
         edit_book(book_id, title, author, quantity)
-        return jsonify({'Response': 'DB successfully updated'}), 200
+        books = get_books()
+        return jsonify({'books': books}), 200
     except:
         return jsonify({'Response': 'Unable to update DB'}), 500
 
@@ -72,7 +76,8 @@ def delete_book(bookId):
 
     try:
         remove_book(bookId)
-        return jsonify({'Response': 'Successfully deleted from DB'}), 200
+        books = get_books()
+        return jsonify({'books': books}), 200
     except:
         return jsonify({'Response': 'Unable to delete from DB'}), 500
 
