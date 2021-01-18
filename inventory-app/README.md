@@ -2,6 +2,16 @@
 
 ## Setup for `inventory-app`
 
+### Docker Images
+Keep in mind that you have to create each Docker image before you can start with Kubernetes.
+
+* `inventory-api/api-server/Dockerfile`
+* `inventory-ui/ui-client/Dockerfile`
+
+And don't forget to push the Images to the Docker registry, e.g.:
+
+`docker push localhost:32000/inventory-ui:v3`
+
 ### General
 Generate configuration yaml file with `kustomization`:
 
@@ -20,7 +30,7 @@ Create storage on hard disk before creating the volume and claim:
 To access the UI add the domain to `etc/hosts`:
 
 ```
-127.0.0.1 inventory-app.com
+127.0.0.1 inventory-app.com api.inventory-app.com
 ```
 
 ### TLS / HTTPS
@@ -42,7 +52,8 @@ DNS.2 = *.inventory-app.com
 
 After you have created either a single self signed certificate or also the certificate authority, you have to create the Kubernetes secret out of the generated certifacte:
 
-```kubectl create secret tls mtfunke-ca-tls-secret \
+```
+kubectl create secret tls mtfunke-ca-tls-secret \
     --cert=mtfunke-vu-ubuntu.com.crt\
     --key=mtfunke-vu-ubuntu.com.key
 ```

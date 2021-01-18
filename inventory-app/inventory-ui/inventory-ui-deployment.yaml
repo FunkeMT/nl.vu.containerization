@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
       - name: inventory-ui-container
-        image: localhost:32000/inventory-ui:v2
+        image: localhost:32000/inventory-ui:v3
         ports:
         - containerPort: 80
