@@ -1,11 +1,10 @@
-<!-- Content -->
-<div class="content" role="main">
-  <ul>
-    <li *ngFor="let book of (books || [])">
-      {{book.title}}
-    </li>
-  </ul>
-</div>
+<mat-toolbar color="primary">
+  <h1>
+    Inventory App 
+  </h1>
+  <button mat-button routerLink="/">Home</button>
+  <button mat-button routerLink="/about">About</button>
 
+</mat-toolbar>
 
 <router-outlet></router-outlet>
