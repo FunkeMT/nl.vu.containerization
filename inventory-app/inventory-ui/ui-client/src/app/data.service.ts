@@ -33,10 +33,24 @@ export class DataService {
       .pipe(catchError(this.handleError));
   }
 
-  public sendPostRequest(book: object) {
-    console.log('Send Post Request:');
+  public sendGetDeleteRequest(bookId: number) {
+    console.log('Send Get Delete Request:');
+    return this.httpClient
+      .get(this.REST_API_SERVER + '/inventory/book/delete/' + bookId)
+      .pipe(catchError(this.handleError));
+  }
+
+  public sendPostCreateRequest(book: object) {
+    console.log('Send Post Create Request:');
     return this.httpClient
       .post<any>(this.REST_API_SERVER + '/inventory/book/create', book)
+      .pipe(catchError(this.handleError));
+  }
+
+  public sendPostUpdateRequest(book: object) {
+    console.log('Send Post Update Request:');
+    return this.httpClient
+      .post<any>(this.REST_API_SERVER + '/inventory/book/update', book)
       .pipe(catchError(this.handleError));
   }
 }

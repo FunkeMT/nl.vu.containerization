@@ -20,7 +20,7 @@ export interface BookData {
 export class HomeComponent implements OnInit {
 
   books: any[] = [];
-  displayedColumns: string[] = ['book-id', 'title', 'author', 'quantity'];
+  displayedColumns: string[] = ['book-id', 'title', 'author', 'quantity', 'action'];
 
   /**
    * Error ignored!!!
@@ -48,20 +48,55 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result.event == 'Add'){
         this.addRowData(result.data);
+      } else if(result.event == 'Update'){
+        this.updateRowData(result.data);
+      } else if(result.event == 'Delete'){
+        this.deleteRowData(result.data);
       }
     });
   }
 
-  addRowData(row_obj: BookData){
+  addRowData(row_obj: any) {
     console.log("AddRowData");
 
     let newBook = {
       "title": row_obj.title,
       "author": row_obj.author,
-      "quantity": row_obj.quantity
+      "quantity": row_obj.quantitiy
     };
 
-    this.dataService.sendPostRequest(newBook).subscribe((data: any) => {
+    this.dataService.sendPostCreateRequest(newBook).subscribe((data: any) => {
+      let booksArray = Object.keys(data.books).map(it => data.books[it])
+      this.books = booksArray;
+    });
+
+    this.booksMatTable.renderRows();
+  }
+
+  updateRowData(row_obj: any) {
+    console.log('updateRowData');
+    console.log(row_obj);
+
+    let updateBook = {
+      "book_id": row_obj.id,
+      "title": row_obj.title,
+      "author": row_obj.author,
+      "quantity": row_obj.quantitiy
+    };
+
+    this.dataService.sendPostUpdateRequest(updateBook).subscribe((data: any) => {
+      let booksArray = Object.keys(data.books).map(it => data.books[it])
+      this.books = booksArray;
+    });
+
+    this.booksMatTable.renderRows();
+  }
+
+  deleteRowData(row_obj: BookData) {
+    console.log('deleteRowData');
+    console.log(row_obj);
+
+    this.dataService.sendGetDeleteRequest(row_obj.id).subscribe((data: any) => {
       let booksArray = Object.keys(data.books).map(it => data.books[it])
       this.books = booksArray;
     });

@@ -7,10 +7,10 @@
     <input placeholder="{{action}} Author" matInput [(ngModel)]="local_data.author">
   </mat-form-field>
   <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-      <input placeholder="{{action}} Quantity" matInput [(ngModel)]="local_data.quantity">
+      <input placeholder="{{action}} Quantity" matInput [(ngModel)]="local_data.quantitiy">
   </mat-form-field>
   <ng-template #elseTemplate>
-    Sure to delete <b>{{local_data.name}}</b>?
+    Sure to delete <b>{{local_data.title}}</b>?
   </ng-template>
 </div>
 <div mat-dialog-actions>
