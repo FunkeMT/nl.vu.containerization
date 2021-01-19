@@ -3,11 +3,11 @@
   <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
     <input placeholder="{{action}} Title" matInput [(ngModel)]="local_data.title">
   </mat-form-field>
-  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+  <mat-form-field *ngIf="action != 'Delete'">
     <input placeholder="{{action}} Author" matInput [(ngModel)]="local_data.author">
   </mat-form-field>
-  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-      <input placeholder="{{action}} Quantity" matInput [(ngModel)]="local_data.quantitiy">
+  <mat-form-field *ngIf="action != 'Delete'">
+      <input placeholder="{{action}} Quantity" matInput [(ngModel)]="local_data.quantity">
   </mat-form-field>
   <ng-template #elseTemplate>
     Sure to delete <b>{{local_data.title}}</b>?

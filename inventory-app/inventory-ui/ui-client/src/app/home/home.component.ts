@@ -59,13 +59,7 @@ export class HomeComponent implements OnInit {
   addRowData(row_obj: any) {
     console.log("AddRowData");
 
-    let newBook = {
-      "title": row_obj.title,
-      "author": row_obj.author,
-      "quantity": row_obj.quantitiy
-    };
-
-    this.dataService.sendPostCreateRequest(newBook).subscribe((data: any) => {
+    this.dataService.sendPostCreateRequest(row_obj).subscribe((data: any) => {
       let booksArray = Object.keys(data.books).map(it => data.books[it])
       this.books = booksArray;
     });
@@ -77,14 +71,7 @@ export class HomeComponent implements OnInit {
     console.log('updateRowData');
     console.log(row_obj);
 
-    let updateBook = {
-      "book_id": row_obj.id,
-      "title": row_obj.title,
-      "author": row_obj.author,
-      "quantity": row_obj.quantitiy
-    };
-
-    this.dataService.sendPostUpdateRequest(updateBook).subscribe((data: any) => {
+    this.dataService.sendPostUpdateRequest(row_obj).subscribe((data: any) => {
       let booksArray = Object.keys(data.books).map(it => data.books[it])
       this.books = booksArray;
     });

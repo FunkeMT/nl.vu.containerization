@@ -2,8 +2,12 @@
 from flask import Flask, request, jsonify
 from persistent import get_books, add_book, edit_book, remove_book
 
+#from flask_cors import CORS, cross_origin       # LOCAL DEV
+
 app = Flask(__name__)
 
+#cors = CORS(app)                                # LOCAL DEV
+#app.config['CORS_HEADERS'] = 'Content-Type'     # LOCAL DEV
 
 
 @app.route('/')
@@ -13,6 +17,7 @@ def index():
 
 
 @app.route('/inventory/books', methods=['GET'])
+#@cross_origin()                                 # LOCAL DEV
 def read_books():
     '''
         READ BOOKS
@@ -29,6 +34,7 @@ def read_books():
 
 
 @app.route('/inventory/book/create', methods=['POST'])
+#@cross_origin()                                 # LOCAL DEV
 def create_book():
     '''
         CREATE BOOK
@@ -48,6 +54,7 @@ def create_book():
 
 
 @app.route('/inventory/book/update', methods=['POST'])
+#@cross_origin()                                 # LOCAL DEV
 def update_book():
     '''
         UPDATE BOOK
@@ -56,7 +63,7 @@ def update_book():
     '''
 
     book = request.get_json()
-    book_id, author, title, quantity = book['book_id'], book['author'], book['title'], book['quantity']
+    book_id, author, title, quantity = book['id'], book['author'], book['title'], book['quantity']
 
     try:
         edit_book(book_id, title, author, quantity)
@@ -67,6 +74,7 @@ def update_book():
 
 
 @app.route('/inventory/book/delete/<bookId>', methods=['GET'])
+#@cross_origin()                                 # LOCAL DEV
 def delete_book(bookId):
     '''
         DELETE BOOK

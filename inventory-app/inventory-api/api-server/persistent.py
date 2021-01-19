@@ -89,7 +89,7 @@ def get_books():
                 "id": row['id'],
                 "title": row['title'],
                 "author": row['author'],
-                "quantitiy": row['quantity']
+                "quantity": row['quantity']
             }
     
     except exc.SQLAlchemyError as error:

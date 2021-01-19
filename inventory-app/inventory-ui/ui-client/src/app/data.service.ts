@@ -10,6 +10,9 @@ import { retry, catchError } from 'rxjs/operators';
 export class DataService {
 
   private REST_API_SERVER = "https://api.inventory-app.com";
+  
+  // LOCAL DEV SERVER
+  //private REST_API_SERVER = "http://localhost:5000";
 
   constructor(private httpClient: HttpClient) { }
 
