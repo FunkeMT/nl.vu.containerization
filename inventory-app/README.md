@@ -21,6 +21,18 @@ Then apply the comiled configuration to kubernetes:
 
 `kubectl apply -f compiled.yaml`
 
+### Database
+Create Postgres DB table:
+
+```sql
+CREATE TABLE IF NOT EXISTS {} (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR NOT NULL,
+    author VARCHAR NOT NULL,
+    quantity INT NOT NULL
+);
+```
+
 ### Volumes
 Create storage on hard disk before creating the volume and claim:
 
