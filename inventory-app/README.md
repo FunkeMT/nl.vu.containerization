@@ -25,7 +25,7 @@ Then apply the comiled configuration to kubernetes:
 Create Postgres DB table:
 
 ```sql
-CREATE TABLE IF NOT EXISTS {} (
+CREATE TABLE IF NOT EXISTS book (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
     author VARCHAR NOT NULL,
