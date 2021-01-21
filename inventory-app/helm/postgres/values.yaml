@@ -3,6 +3,7 @@ name: postgres
 group: db
 
 postgres:
+  name: app-db
 
   container:
     image: postgres:13.1-alpine

@@ -2,6 +2,8 @@ app: inventory-app
 group: db
 
 postgres:
+  name: inventory-db
+  
   config:
     name: postgres-config
     data:

@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.labelapp }}
+        app: {{ .Values.app.name }}
         group: {{ .Values.group }}
     spec:
       containers:
