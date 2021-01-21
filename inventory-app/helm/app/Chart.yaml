@@ -1,0 +1,25 @@
+apiVersion: v2
+name: app
+description: A generic Helm chart for the Inventory-App on Kubernetes
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.1
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application.
+appVersion: 0.1
+
+keywords:
+  - app
+  - api
+  - python
+  - javascript
+  - angular
+  - flask
+  - nginx
+home: https://github.com/FunkeMT/nl.vu.containerization
+maintainers:
+  - name: Markus Funke
+    url: https://github.com/FunkeMT

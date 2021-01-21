@@ -1,0 +1,15 @@
+replicaCount: 1
+
+app:
+  name: app
+  group: app
+
+  container:
+    image: add-image-here
+    port: 8080
+    config: []
+    env: []
+
+  service:
+    type: ClusterIP
+    port: 8080

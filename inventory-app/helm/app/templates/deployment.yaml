@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-deployment
+  labels:
+    app: {{ .Values.app.name }}
+    group: {{ .Values.app.group }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+        group: {{ .Values.app.group }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}-container
+          image: {{ .Values.app.container.image }}  
+          ports:
+            - containerPort: {{ .Values.app.container.port }}
+          envFrom:
+            {{- range .Values.app.container.config }}
+            - configMapRef:
+                name: {{ .name }}
+            {{- end}}
+          env:
+            {{- range .Values.app.container.env }}
+            - name: {{ .key }}
+              value: {{ .value }}
+            {{- end }}
+            {{- range .Values.app.container.secureEnv }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secName }}
+                  key: {{ .secKey }}
+            {{- end}}

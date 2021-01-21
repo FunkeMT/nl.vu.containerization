@@ -1,0 +1,14 @@
+replicaCount: 3
+
+app:
+  name: inventory-api
+  group: backend
+  container:
+    image: localhost:32000/inventory-api:v6
+    port: 5000
+    config:
+      - name: postgres-config
+    secureEnv:
+      - name: POSTGRES_PASSWORD
+        secName: postgres-secret
+        secKey: POSTGRES_PASSWORD
