@@ -1,0 +1,21 @@
+app: inventory-app
+
+ingress:
+  name: inventory-api
+  annotations:
+    - key: nginx.ingress.kubernetes.io/enable-cors
+      value: "true"
+    - key: nginx.ingress.kubernetes.io/cors-allow-methods
+      value: "PUT, GET, POST, OPTIONS"
+    - key: nginx.ingress.kubernetes.io/cors-allow-origin
+      value: "*"
+    - key: nginx.ingress.kubernetes.io/cors-allow-credentials
+      value: "true"
+  hosts:
+    - host: api.inventory-app-helm.com
+      paths: 
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: inventory-api-service
+            servicePort: 8080

@@ -1,0 +1,13 @@
+app: app
+group: service
+
+ingress:
+  name: ingress-service
+  hosts:
+    - host: chart-example.local
+      paths: 
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: serviceName
+            servicePort: 8080

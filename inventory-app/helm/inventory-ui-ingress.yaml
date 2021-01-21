@@ -1,0 +1,12 @@
+app: inventory-app
+
+ingress:
+  name: inventory-ui
+  hosts:
+    - host: inventory-app-helm.com
+      paths: 
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: inventory-ui-service
+            servicePort: 8080
