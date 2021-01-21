@@ -9,7 +9,11 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class DataService {
 
-  private REST_API_SERVER = "https://api.inventory-app.com";
+  // DEFAULT
+  //private REST_API_SERVER = "https://api.inventory-app.com";
+
+  // HELM
+  private REST_API_SERVER = "http://api.inventory-app-helm.com";
   
   // LOCAL DEV SERVER
   //private REST_API_SERVER = "http://localhost:5000";

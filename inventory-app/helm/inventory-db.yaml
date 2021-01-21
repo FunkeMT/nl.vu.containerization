@@ -12,13 +12,20 @@ postgres:
       - key: POSTGRES_USER
         value: postgresadmin
       - key: POSTGRES_PORT
-        value: "5432"
+        value: "5433"
       - key: POSTGRES_HOST
         value: inventory-db-service
+  
+  volume:
+    pv:
+      hostPath: "/opt/postgres/helm-data"
   
   secret:
     name: postgres-secret
     data:
       - key: POSTGRES_PASSWORD
         value: YWRtaW4xMjMK
+  
+  service:
+    port: 5433
     
