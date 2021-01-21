@@ -9,7 +9,11 @@ postgres:
     imagePullPolicy: "IfNotPresent"
     port: 5432
   
-  config: []
+  config:
+    data:
+      - key: key
+        value: value
+        
   env: []
 
   secret:

@@ -3,8 +3,8 @@ kind: {{ .Values.postgres.volume.pv.kind }}
 metadata:
   name: {{ .Values.postgres.volume.pv.name }}
   labels:
-    app: {{ .Values.postgres.name }}
-    group: {{ .Values.postgres.group }}
+    app: {{ .Values.app }}
+    group: {{ .Values.group }}
 spec:
   storageClassName: {{ .Values.postgres.volume.pv.storageClass }}
   capacity:
@@ -12,4 +12,4 @@ spec:
   accessModes:
     - {{ .Values.postgres.volume.pv.accessMode }}
   hostPath:
-    path: {{ .Values.postgres.volume.pv.hostPath }}
+    path: {{ .Values.postgres.volume.pv.hostPath | quote }}

@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   name: {{ .Values.postgres.name }}-deployment
   labels:
-    app: {{ .Values.postgres.name }}
-    group: {{ .Values.postgres.group }}
+    app: {{ .Values.app }}
+    group: {{ .Values.group }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -13,8 +13,8 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.postgres.name }}
-        group: {{ .Values.postgres.group }}
+        app: {{ .Values.app }}
+        group: {{ .Values.group }}
     spec:
       volumes:
         - name: {{ .Values.postgres.volume.name }}
@@ -27,22 +27,17 @@ spec:
           ports:
             - containerPort: {{ .Values.postgres.container.port }}
           envFrom:
-            {{- range .Values.postgres.container.config }}
             - configMapRef:
-                name: {{ .name }}
-            {{- end}}
+                name: {{ .Values.postgres.config.name }}
           env:
-            {{- range .Values.postgres.container.env }}
+          {{- $secretName := .Values.postgres.secret.name }}
+          {{- range .Values.postgres.secret.data }}
             - name: {{ .key }}
-              value: {{ .value }}
-            {{- end }}
-            {{- range .Values.postgres.container.secureEnv }}
-            - name: {{ .name }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ .secName }}
-                  key: {{ .secKey }}
-            {{- end}}
+                  name: {{ $secretName }}
+                  key: {{ .key }}
+          {{- end}}
           volumeMounts:             
             - name: {{ .Values.postgres.volume.name }}
               mountPath: {{ .Values.postgres.volume.mountPath }} 

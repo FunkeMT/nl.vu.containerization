@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.postgres.config.name }}
   labels:
-    app: {{ .Values.postgres.name }}
-    group: {{ .Values.postgres.group }}
+    app: {{ .Values.app }}
+    group: {{ .Values.group }}
 data: 
 {{- range .Values.postgres.config.data }}
-  {{ .key }}: {{ .value }}
+  {{ .key }}: {{ .value | quote }}
 {{- end}}
