@@ -1,19 +1,22 @@
-postgres:
-    name: inventory-db
-    group: db
+app: inventory-app
+group: db
 
-    config:
-      data:
-        - key: POSTGRES_DB
-          value: inventory
-        - key: POSTGRES_USER
-          value: postgresadmin
-        - key: POSTGRES_PORT
-          value: "5432"
-        - key: POSTGRES_HOST
-          value: inventory-db-service
+postgres:
+  config:
+    name: postgres-config
+    data:
+      - key: POSTGRES_DB
+        value: inventory
+      - key: POSTGRES_USER
+        value: postgresadmin
+      - key: POSTGRES_PORT
+        value: "5432"
+      - key: POSTGRES_HOST
+        value: inventory-db-service
+  
+  secret:
+    name: postgres-secret
+    data:
+      - key: POSTGRES_PASSWORD
+        value: YWRtaW4xMjMK
     
-    secret:
-      data:
-        - key: POSTGRES_PASSWORD
-          value: YWRtaW4xMjMK

@@ -1,8 +1,8 @@
 replicaCount: 1
+name: postgres
+group: db
 
 postgres:
-  name: postgres
-  group: db
 
   container:
     image: postgres:13.1-alpine

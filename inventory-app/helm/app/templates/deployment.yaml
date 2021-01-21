@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   name: {{ .Values.app.name }}-deployment
   labels:
-    app: {{ .Values.app.name }}
-    group: {{ .Values.app.group }}
+    app: {{ .Values.labelapp }}
+    group: {{ .Values.group }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -13,28 +13,27 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.app.name }}
-        group: {{ .Values.app.group }}
+        app: {{ .Values.labelapp }}
+        group: {{ .Values.group }}
     spec:
       containers:
         - name: {{ .Values.app.name }}-container
           image: {{ .Values.app.container.image }}  
           ports:
             - containerPort: {{ .Values.app.container.port }}
+          {{- if .Values.app.config }}
           envFrom:
-            {{- range .Values.app.container.config }}
             - configMapRef:
-                name: {{ .name }}
-            {{- end}}
+                name: {{ .Values.app.config.name }}
+          {{- end }}
+          {{- if .Values.app.secret }}
           env:
-            {{- range .Values.app.container.env }}
+          {{- $secretName := .Values.app.secret.name }}
+          {{- range .Values.app.secret.data }}
             - name: {{ .key }}
-              value: {{ .value }}
-            {{- end }}
-            {{- range .Values.app.container.secureEnv }}
-            - name: {{ .name }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ .secName }}
-                  key: {{ .secKey }}
-            {{- end}}
+                  name: {{ $secretName }}
+                  key: {{ .key }}
+          {{- end}}
+          {{- end}}

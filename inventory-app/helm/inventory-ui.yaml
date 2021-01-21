@@ -1,8 +1,9 @@
-replicaCount: 3
+labelapp: inventory-app
+group: frontend
 
 app:
   name: inventory-ui
-  group: frontend
+
   container:
     image: localhost:32000/inventory-ui:v4
     port: 80

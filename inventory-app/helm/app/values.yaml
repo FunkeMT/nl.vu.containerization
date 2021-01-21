@@ -1,15 +1,15 @@
-replicaCount: 1
+replicaCount: 3
+labelapp: app
+group: app
 
 app:
-  name: app
-  group: app
+  name: app-name
 
   container:
     image: add-image-here
     port: 8080
-    config: []
-    env: []
 
   service:
     type: ClusterIP
+    protocol: TCP
     port: 8080
