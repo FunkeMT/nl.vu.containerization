@@ -8,12 +8,14 @@
 1. Create DB path  
 `sudo mkdir /opt/postgres/helm-data`
 
+1. Verify Helm charts
+
+```
+helm install inventory-app-helm ./inventory-app-chart/ -n inventory-app-helm --dry-run
+```
+
 1. Install Helm charts
 
 ```
-helm install -f ./inventory-db.yaml inventory-db ./postgres -n inventory-app-helm
-helm install -f ./inventory-api.yaml inventory-api ./app -n inventory-app-helm
-helm install -f ./inventory-ui.yaml inventory-ui ./app -n inventory-app-helm
-helm install -f ./inventory-api-ingress.yaml inventory-api-ingress ./ingress -n inventory-app-helm
-helm install -f ./inventory-ui-ingress.yaml inventory-ui-ingress ./ingress -n inventory-app-helm
+helm install inventory-app-helm ./inventory-app-chart/ -n inventory-app-helm
 ```
