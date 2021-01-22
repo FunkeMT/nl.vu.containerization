@@ -1,0 +1,23 @@
+# source this file instead of executing as shell script
+
+# Create storage on hard disk before creating the volume and claim:
+sudo mkdir -p /opt/postgres/data
+
+# To access the UI add the domain to etc/hosts:
+sudo grep -qxF '127.0.0.1 inventory-app.com api.inventory-app.com' /etc/hosts || sudo echo '127.0.0.1 inventory-app.com api.inventory-app.com' >> /etc/hosts
+
+# find last version of image 
+latest_version_api=$(($(sudo docker images -a | grep "inventory-api" | awk '{print $2}' | cut -c 2-) + 1))
+latest_version_ui=$(($(sudo docker images -a | grep "inventory-ui" | awk '{print $2}' | cut -c 2-) + 1))
+
+# build and tag images
+sudo docker build -t "localhost:32000/inventory-api:v${latest_version_api}" ../inventory-api/api-server
+sudo docker build -t "localhost:32000/inventory-ui:v${latest_version_ui}" ../inventory-ui/ui-client
+
+# push immages to microk8s built-in registry
+sudo docker push "localhost:32000/inventory-api:v${latest_version_api}" 
+sudo docker push "localhost:32000/inventory-ui:v${latest_version_ui}" 
+
+# Generate configuration yaml file with kustomization, then apply the comiled configuration to kubernetes
+kubectl kustomize ../ > compiled.yaml
+kubectl apply -f $(find ~ -name compiled.yaml -printf '%h\n')
