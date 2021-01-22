@@ -89,18 +89,31 @@ Then start the Kubernetes ingress controller with the certificate:
 1. Do NOT check-in the file!
 
 ## Istio
-  First enable istio
+First enable istio
+
   `microk8s enable istio`
-  Wait untill all pods have status Running or Completed
+  
+Wait untill all pods have status Running or Completed
+
   `kubectl get pods -n istio-system`
+  
   `kubectl get endpoints -n istio-system`
-  For convencience
+  
+For convencience
+
   `echo "alias istioctl='microk8s istioctl'" >> ~/.bash_aliases`
+  
   `source ~/.bash_aliases`
-  Enable injection and delete pods so they get recreated with istio sidecar
+  
+Enable injection and delete pods so they get recreated with istio sidecar
+
   `kubectl label namespace inventory-app istio-injection=enabled`
+  
   `kubectl delete pod -n inventory-app -l app=postgres && kubectl delete pod -n inventory-app  -l app=inventory-ui && kubectl delete pod -n inventory-app  -l app=inventory-api`
+  
 ### Prometheus
-  Apply nodeport service to make prometheus visible from the outside:
+Apply nodeport service to make prometheus visible from the outside:
+
   `kubectl apply -f $(find "$(cd ..; pwd)" -name "prometheus-np-service.yaml")`
-  Prometheus should now be accessible by visiting localhost:30909 outside of the vm
+  
+Prometheus should now be accessible by visiting localhost:30909 outside of the vm
