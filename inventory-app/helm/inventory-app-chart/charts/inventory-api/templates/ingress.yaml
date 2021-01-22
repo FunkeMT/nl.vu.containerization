@@ -1,19 +1,20 @@
+{{- if .Values.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.ingress.name }}-ingress
+  name: {{ .Values.genericApp.name }}-ingress
   labels:
-    app: {{ .Values.app }}
+    app: {{ .Values.labelapp }}
     group: {{ .Values.group }}
-  {{- if .Values.ingress.annotations }}
+  {{- if .Values.genericApp.ingress.annotations }}
   annotations:
-  {{- range .Values.ingress.annotations }}
+  {{- range .Values.genericApp.ingress.annotations }}
     {{ .key }}: {{ .value | quote }}
   {{- end }}
   {{- end }}
 spec:
   rules:
-  {{- range .Values.ingress.hosts }}
+  {{- range .Values.genericApp.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -27,3 +28,4 @@ spec:
                   number: {{ .backend.servicePort }}
         {{- end }}
   {{- end }}
+{{- end }}

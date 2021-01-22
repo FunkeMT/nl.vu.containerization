@@ -1,9 +1,0 @@
-labelapp: inventory-app
-group: frontend
-
-app:
-  name: inventory-ui
-
-  container:
-    image: localhost:32000/inventory-ui:v4-helm
-    port: 80

@@ -1,19 +1,24 @@
 apiVersion: v2
-name: app
-description: A Helm chart for the Inventory-App Postgres Database on Kubernetes
+name: inventory-api
+description: A generic Helm chart for the Inventory-App on Kubernetes
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
-version: 0.3
+version: 0.2
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application.
-appVersion: 0.1
+appVersion: 0.2
 
 keywords:
-  - database
-  - postgres
+  - app
+  - api
+  - python
+  - javascript
+  - angular
+  - flask
+  - nginx
 home: https://github.com/FunkeMT/nl.vu.containerization
 maintainers:
   - name: Markus Funke
