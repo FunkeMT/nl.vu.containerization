@@ -22,7 +22,7 @@ inventory-db:
     
     volume:
       pv:
-        hostPath: "/opt/postgres/helm-data"
+        hostPath: "tmp"
     
     secret:
       name: postgres-secret
@@ -45,7 +45,7 @@ inventory-api:
     name: inventory-api
 
     container:
-      image: localhost:32000/inventory-api:v6
+      image: us.gcr.io/hypnotic-runway-301112/inventory-api
       port: 5000
 
     config:
@@ -88,7 +88,7 @@ inventory-ui:
     name: inventory-ui
 
     container:
-      image: localhost:32000/inventory-ui:v4-helm
+      image: us.gcr.io/hypnotic-runway-301112/inventory-ui
       port: 80
     
     ingress:
