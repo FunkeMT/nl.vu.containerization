@@ -1,0 +1,22 @@
+apiVersion: v2
+name: inventory-app-chart
+description: A Helm chart for Kubernetes for the Inventory-App
+
+type: application
+
+version: 0.1.0
+
+appVersion: 0.1.0
+
+dependencies:
+  - name: inventory-db
+    condition: enabled
+  - name: inventory-api
+    condition: enabled
+  - name: inventory-ui
+    condition: enabled
+
+home: https://github.com/FunkeMT/nl.vu.containerization
+maintainers:
+  - name: Markus Funke
+    url: https://github.com/FunkeMT

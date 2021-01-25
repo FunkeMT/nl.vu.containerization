@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export POSTGRES_DB=
-export POSTGRES_HOST=
-export POSTGRES_PORT=
-export POSTGRES_USER=
-export POSTGRES_PASSWORD=
+export POSTGRES_DB=inventory
+export POSTGRES_HOST=localhost
+export POSTGRES_PORT=5432
+export POSTGRES_USER=postgresadmin
+export POSTGRES_PASSWORD=admin123
