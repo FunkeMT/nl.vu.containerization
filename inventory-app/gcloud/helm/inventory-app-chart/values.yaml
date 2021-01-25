@@ -1,0 +1,103 @@
+#####################
+# Inventory DB
+#####################
+inventory-db:
+  app: inventory-app
+  group: db
+
+  postgres:
+    name: inventory-db
+    
+    config:
+      name: postgres-config
+      data:
+        - key: POSTGRES_DB
+          value: inventory
+        - key: POSTGRES_USER
+          value: postgresadmin
+        - key: POSTGRES_PORT
+          value: "5433"
+        - key: POSTGRES_HOST
+          value: inventory-db-service
+    
+    volume:
+      pv:
+        hostPath: "tmp"
+    
+    secret:
+      name: postgres-secret
+      data:
+        - key: POSTGRES_PASSWORD
+          value: YWRtaW4xMjMK
+    
+    service:
+      port: 5433
+
+
+#####################
+# Inventory API
+#####################
+inventory-api:
+  labelapp: inventory-app
+  group: backend
+
+  genericApp:
+    name: inventory-api
+
+    container:
+      image: us.gcr.io/hypnotic-runway-301112/inventory-api
+      port: 5000
+
+    config:
+      name: postgres-config
+
+    secret:
+      name: postgres-secret
+      data:
+        - key: POSTGRES_PASSWORD
+
+    ingress:
+      name: inventory-api
+      annotations:
+        - key: nginx.ingress.kubernetes.io/enable-cors
+          value: "true"
+        - key: nginx.ingress.kubernetes.io/cors-allow-methods
+          value: "PUT, GET, POST, OPTIONS"
+        - key: nginx.ingress.kubernetes.io/cors-allow-origin
+          value: "*"
+        - key: nginx.ingress.kubernetes.io/cors-allow-credentials
+          value: "true"
+      hosts:
+        - host: api.inventory-app-helm.com
+          paths: 
+            - path: /
+              pathType: Prefix
+              backend:
+                serviceName: inventory-api-service
+                servicePort: 8080
+    
+
+#####################
+# Inventory UI
+#####################
+inventory-ui:
+  labelapp: inventory-app
+  group: frontend
+
+  genericApp:
+    name: inventory-ui
+
+    container:
+      image: us.gcr.io/hypnotic-runway-301112/inventory-ui
+      port: 80
+    
+    ingress:
+      name: inventory-ui
+      hosts:
+        - host: inventory-app-helm.com
+          paths: 
+            - path: /
+              pathType: Prefix
+              backend:
+                serviceName: inventory-ui-service
+                servicePort: 8080
