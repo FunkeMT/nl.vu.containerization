@@ -6,7 +6,7 @@
 `kubectl create namespace inventory-app-helm`
 
 1. Create DB path  
-`sudo mkdir /opt/postgres/helm-data`
+`sudo mkdir -p /opt/postgres/helm-data`
 
 1. Verify Helm charts
 
