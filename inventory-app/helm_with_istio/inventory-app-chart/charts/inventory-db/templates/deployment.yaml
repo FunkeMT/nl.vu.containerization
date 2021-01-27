@@ -1,0 +1,49 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres.name }}-deployment
+  labels:
+    app: {{ .Values.app }}
+    group: {{ .Values.group }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.postgres.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.postgres.name }}
+        group: {{ .Values.group }}
+    spec:
+      volumes:
+        - name: {{ .Values.postgres.volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgres.volume.pvc.name }}
+      containers:
+        - name: {{ .Values.postgres.name }}-container
+          image: {{ .Values.postgres.container.image }}
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/bash","-c","sleep 20 && PGPASSWORD=$POSTGRES_PASSWORD psql $POSTGRES_DB -U $POSTGRES_USER -c \'CREATE TABLE IF NOT EXISTS book (  id SERIAL PRIMARY KEY, title VARCHAR NOT NULL, author VARCHAR NOT NULL, quantity INT NOT NULL )\'"] 
+          imagePullPolicy: {{ .Values.postgres.container.imagePullPolicy }} 
+          ports:
+            - containerPort: {{ .Values.postgres.container.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.postgres.config.name }}
+          env:
+          {{- $secretName := .Values.postgres.secret.name }}
+          {{- range .Values.postgres.secret.data }}
+            - name: {{ .key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: {{ .key }}
+          {{- end}}
+          volumeMounts:             
+            - name: {{ .Values.postgres.volume.name }}
+              mountPath: {{ .Values.postgres.volume.mountPath }}
+{{- end }}
