@@ -91,6 +91,9 @@ inventory-ui:
       image: us.gcr.io/hypnotic-runway-301112/inventory-ui
       port: 80
     
+    service:
+      type: NodePort
+    
     ingress:
       name: inventory-ui
       hosts:

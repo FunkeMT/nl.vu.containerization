@@ -4,16 +4,16 @@ description: A Helm chart for Kubernetes for the Inventory-App
 
 type: application
 
-version: 0.1.0
+version: 0.2
 
-appVersion: 0.1.0
+appVersion: 0.1
 
 dependencies:
-  - name: inventory-db
+  - name: inventoryDB
     condition: enabled
-  - name: inventory-api
+  - name: inventoryAPI
     condition: enabled
-  - name: inventory-ui
+  - name: inventoryUI
     condition: enabled
 
 home: https://github.com/FunkeMT/nl.vu.containerization
