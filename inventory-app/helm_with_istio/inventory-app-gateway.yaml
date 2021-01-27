@@ -1,0 +1,101 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: inventory-app-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+    # - inventory-app-helm.com
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: inventory-ui-rule
+spec:
+  hosts:
+  # - inventory-app-helm.com
+  - "*"
+  gateways:
+  - inventory-app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /inventory/books
+    route:
+    - destination:
+        host: inventory-api-service.inventory-app-istio.svc.cluster.local
+        port:
+          number: 8080
+    corsPolicy:
+      allowCredentials: true
+      allowMethods:
+        - PUT
+        - GET
+        - POST
+        - OPTIONS
+      allowOrigin:
+        - "*"
+      allowHeaders:
+        - authorization
+        - content-type
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: inventory-ui-service.inventory-app-istio.svc.cluster.local
+        port:
+          number: 8080
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: inventory-api-rule
+# spec:
+#   hosts:
+#   - api.inventory-app-helm.com
+#   gateways:
+#   - inventory-app-gateway
+#   http:
+#   - match:
+#     - uri:
+#         prefix: /
+#     route:
+#     - destination:
+#         host: inventory-api-service.inventory-app-helm.svc.cluster.local
+#         port:
+#           number: 8080
+#     corsPolicy:
+#       allowCredentials: true
+#       allowMethods:
+#         - PUT
+#         - GET
+#         - POST
+#         - OPTIONS
+#       allowOrigin:
+#         - "*"
+#       allowHeaders:
+#         - authorization
+#         - content-type
+# I am not sure what service entries exactly are but I couldnt get it working
+# apiVersion: networking.istio.io/v1alpha3
+# kind: ServiceEntry
+# metadata:
+#   name: external-svc-inventory-app
+# spec:
+#   hosts:
+#   - inventory-app-helm.com
+#   location: MESH_EXTERNAL
+#   ports:
+#   - number: 80
+#     name: example-http
+#     protocol: HTTP
+#   resolution: DNS
+# ---

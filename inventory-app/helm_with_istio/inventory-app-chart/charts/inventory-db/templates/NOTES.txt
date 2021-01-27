@@ -1,0 +1,16 @@
+Thank you for deploying '{{ .Values.postgres.name }}'.
+
+Your release is named {{ .Release.Name }}.
+
+Do not forget to setup the DB environment if you install this deployment for the first time:
+
+1) Create PV host path:
+sudo mkdir {{ .Values.postgres.volume.pv.hostPath }}
+
+2) Create SQL table scheme:
+CREATE TABLE IF NOT EXISTS book (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR NOT NULL,
+    author VARCHAR NOT NULL,
+    quantity INT NOT NULL
+)
