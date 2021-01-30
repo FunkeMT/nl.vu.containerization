@@ -1,7 +1,7 @@
 #####################
 # Inventory DB
 #####################
-inventory-db:
+inventoryDB:
   app: inventory-app
   group: db
 
@@ -37,7 +37,7 @@ inventory-db:
 #####################
 # Inventory API
 #####################
-inventory-api:
+inventoryAPI:
   labelapp: inventory-app
   group: backend
 
@@ -45,7 +45,7 @@ inventory-api:
     name: inventory-api
 
     container:
-      image: localhost:32000/inventory-api:v6
+      image: localhost:32000/inventory-api
       port: 5000
 
     config:
@@ -80,7 +80,7 @@ inventory-api:
 #####################
 # Inventory UI
 #####################
-inventory-ui:
+inventoryUI:
   labelapp: inventory-app
   group: frontend
 
@@ -88,7 +88,7 @@ inventory-ui:
     name: inventory-ui
 
     container:
-      image: localhost:32000/inventory-ui:v4-helm
+      image: localhost:32000/inventory-ui
       port: 80
     
     ingress:
