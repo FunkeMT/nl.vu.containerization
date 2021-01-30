@@ -14,8 +14,8 @@ spec:
         prefix: /api
     route:
     - destination:
-        # host: inventory-api-service.inventory-app-istio.svc.cluster.local
-        host: inventory-api-service.default.svc.cluster.local  
+        host: inventory-api-service.inventory-app-helm.svc.cluster.local
+        # host: inventory-api-service.default.svc.cluster.local  
         port:
           number: 8080
     corsPolicy:
@@ -37,5 +37,5 @@ spec:
     - destination:
         port:
           number: 8080
-        # host: inventory-ui-service.inventory-app-istio.svc.cluster.local
-        host: inventory-ui-service.default.svc.cluster.local
+        host: inventory-ui-service.inventory-app-helm.svc.cluster.local
+        # host: inventory-ui-service.default.svc.cluster.local
