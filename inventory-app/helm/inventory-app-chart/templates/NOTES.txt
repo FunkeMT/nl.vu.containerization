@@ -1,0 +1,6 @@
+Thank you for deploying the Inventory-App.
+
+Release: {{ .Release.Name }}.
+
+You can access the App via:
+https://{{ (index .Values.inventoryUI.genericApp.ingress.hosts 0).host }}
