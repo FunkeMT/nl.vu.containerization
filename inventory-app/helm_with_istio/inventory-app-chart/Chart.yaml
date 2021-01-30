@@ -15,6 +15,8 @@ dependencies:
     condition: enabled
   - name: inventory-ui
     condition: enabled
+  - name: inventory-app-gateway
+    condition: enabled
 
 home: https://github.com/FunkeMT/nl.vu.containerization
 maintainers:

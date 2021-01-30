@@ -10,13 +10,13 @@ app = Flask(__name__)
 #app.config['CORS_HEADERS'] = 'Content-Type'     # LOCAL DEV
 
 
-@app.route('/')
+@app.route('/api')
 def index():
     return "My Inventory App v2", 200
 
 
 
-@app.route('/inventory/books', methods=['GET'])
+@app.route('/api/inventory/books', methods=['GET'])
 #@cross_origin()                                 # LOCAL DEV
 def read_books():
     '''
@@ -33,7 +33,7 @@ def read_books():
 
 
 
-@app.route('/inventory/book/create', methods=['POST'])
+@app.route('/api/inventory/book/create', methods=['POST'])
 #@cross_origin()                                 # LOCAL DEV
 def create_book():
     '''
@@ -53,7 +53,7 @@ def create_book():
         return jsonify({'Response': 'Unable to insert into DB'}), 500
 
 
-@app.route('/inventory/book/update', methods=['POST'])
+@app.route('/api/inventory/book/update', methods=['POST'])
 #@cross_origin()                                 # LOCAL DEV
 def update_book():
     '''
@@ -73,7 +73,7 @@ def update_book():
         return jsonify({'Response': 'Unable to update DB'}), 500
 
 
-@app.route('/inventory/book/delete/<bookId>', methods=['GET'])
+@app.route('/api/inventory/book/delete/<bookId>', methods=['GET'])
 #@cross_origin()                                 # LOCAL DEV
 def delete_book(bookId):
     '''

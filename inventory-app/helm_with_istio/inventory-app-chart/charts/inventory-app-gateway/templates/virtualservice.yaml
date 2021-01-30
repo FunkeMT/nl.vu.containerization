@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: inventory-app
+spec:
+  hosts:
+  # - "10.50.100.5"
+  - "*"
+  gateways:
+  - inventory-app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api
+    route:
+    - destination:
+        # host: inventory-api-service.inventory-app-istio.svc.cluster.local
+        host: inventory-api-service.default.svc.cluster.local  
+        port:
+          number: 8080
+    corsPolicy:
+      allowCredentials: true
+      allowMethods:
+        - PUT
+        - GET
+        - POST
+        - OPTIONS
+      allowOrigin:
+        - "*"
+      allowHeaders:
+        - authorization
+        - content-type
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 8080
+        # host: inventory-ui-service.inventory-app-istio.svc.cluster.local
+        host: inventory-ui-service.default.svc.cluster.local

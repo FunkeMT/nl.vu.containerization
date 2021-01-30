@@ -13,7 +13,7 @@ export class DataService {
   //private REST_API_SERVER = "https://api.inventory-app.com";
 
   // HELM
-  private REST_API_SERVER = "http://api.inventory-app-helm.com";
+  private REST_API_SERVER = "https://10.50.100.5/api";
   
   // LOCAL DEV SERVER
   //private REST_API_SERVER = "http://localhost:5000";

@@ -45,7 +45,7 @@ inventory-api:
     name: inventory-api
 
     container:
-      image: localhost:32000/inventory-api:v6
+      image: localhost:32000/inventory-api:v9
       port: 5000
 
     config:
@@ -69,7 +69,7 @@ inventory-ui:
     name: inventory-ui
 
     container:
-      image: localhost:32000/inventory-ui:v4-helm
+      image: localhost:32000/inventory-ui:v13
       port: 80
     
 

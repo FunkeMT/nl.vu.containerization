@@ -15,14 +15,3 @@ genericApp:
     type: ClusterIP
     protocol: TCP
     port: 8080
-  
-  ingress:
-    name: ingress-service
-    hosts:
-      - host: chart-example.local
-        paths: 
-          - path: /
-            pathType: Prefix
-            backend:
-              serviceName: serviceName
-              servicePort: 8080
