@@ -37,3 +37,42 @@ Implements the Dockerfiles and Kubernetes configuration for
 
 * `presentation`: Contains all files for the final presentation.
 
+## Commands
+> All commands used in the presentation video and further comands like configuration, deployment, upgrade, gcloud, istio can be found in `presentation/README.md`
+
+## Commands required to build the images
+
+### API
+
+* `docker build -t inventory-api:vX inventory-app/inventory-api/api-server/`
+* `docker tag inventory-api:vX localhost:32000/inventory-api:vX`
+* `docker push localhost:32000/inventory-api:vX`
+
+### UI
+
+* `docker build -t inventory-ui:vX inventory-app/inventory-ui/ui-client/`
+* `docker tag inventory-ui:vX localhost:32000/inventory-ui:vX`
+* `docker push localhost:32000/inventory-ui:vX`
+
+### DB
+> Not necessary. DockerHub image is used.
+
+## Commands required to deploy the Kubernetes application (HELM)
+
+### Preparation
+* Create storage on hard disk before creating the volume and claim  
+`sudo mkdir -p /opt/postgre/data`
+
+* DNS entry at `etc/hosts`
+`127.0.0.1 inventory-app-helm.com api.inventory-app-helm.com`
+
+* TLS certificate (script or manually)
+`sh inventory-app/scripts/create_certificate`
+
+### Kubernetes
+* Crate namespace  
+`kubectl create namespace inventory-app-helm`
+
+* Install HELM chart  
+`helm install inventory-app-helm inventory-app/helm/inventory-app-chart/ -n inventory-app-helm`
+

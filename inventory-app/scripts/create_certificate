@@ -25,7 +25,9 @@ keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltName = @alt_names
 [alt_names]
 DNS.1 = inventory-app.com
-DNS.2 = *.inventory-app.com" > $NAME.ext
+DNS.2 = *.inventory-app.com
+DNS.3 = inventory-app-helm.com
+DNS.4 = *.inventory-app-helm.com" > $NAME.ext
 # Create the signed certificate
 openssl x509 -req -in $NAME.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial \
 -out $NAME.crt -days 825 -sha256 -extfile $NAME.ext
