@@ -1,0 +1,5 @@
+# ingore compiled configuration from kustomization
+compiled.yaml
+cert
+certistio
+.vscode

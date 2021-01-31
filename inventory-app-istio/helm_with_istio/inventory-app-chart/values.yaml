@@ -1,0 +1,75 @@
+#####################
+# Inventory DB
+#####################
+inventory-db:
+  app: inventory-app
+  group: db
+
+  postgres:
+    name: inventory-db
+    
+    config:
+      name: postgres-config
+      data:
+        - key: POSTGRES_DB
+          value: inventory
+        - key: POSTGRES_USER
+          value: postgresadmin
+        - key: POSTGRES_PORT
+          value: "5433"
+        - key: POSTGRES_HOST
+          value: inventory-db-service
+    
+    volume:
+      pv:
+        hostPath: "/opt/postgres/helm-data"
+    
+    secret:
+      name: postgres-secret
+      data:
+        - key: POSTGRES_PASSWORD
+          value: YWRtaW4xMjMK
+    
+    service:
+      port: 5433
+
+
+#####################
+# Inventory API
+#####################
+inventory-api:
+  labelapp: inventory-app
+  group: backend
+
+  genericApp:
+    name: inventory-api
+
+    container:
+      image: localhost:32000/inventory-api:v9
+      port: 5000
+
+    config:
+      name: postgres-config
+
+    secret:
+      name: postgres-secret
+      data:
+        - key: POSTGRES_PASSWORD
+
+
+
+#####################
+# Inventory UI
+#####################
+inventory-ui:
+  labelapp: inventory-app
+  group: frontend
+
+  genericApp:
+    name: inventory-ui
+
+    container:
+      image: localhost:32000/inventory-ui:v13
+      port: 80
+    
+
