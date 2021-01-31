@@ -1,0 +1,35 @@
+# Source: inventory-app-chart/charts/inventoryAPI/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-api-canary
+  labels:
+    app: inventory-app
+    group: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inventory-api
+      version: v5
+  template:
+    metadata:
+      labels:
+        app: inventory-api
+        group: backend
+        version: v5
+    spec:
+      containers:
+        - name: inventory-api-container
+          image: "localhost:32000/inventory-api:v5"
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
